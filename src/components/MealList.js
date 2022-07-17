@@ -20,6 +20,7 @@ const MealList = () => {
     fetchData();
   }, []);
 
+
   return (
     <>
     {!loading && (
@@ -27,6 +28,10 @@ const MealList = () => {
         {meals.map((meal) => (
           <Meal
             mealName={meal.name}
+            description={meal.description}
+            tags={meal.tags}
+            rating={meal.rating}
+            poster={meal.poster}
             imgsrc="placeholder.jpg"
             ></Meal>
         ))}      
@@ -34,15 +39,6 @@ const MealList = () => {
     )}
     </>
   )
-  /*
-  return (
-    <div className="grid grid-cols-2 gap-1">
-      <Meal imgsrc="placeholder.jpg" mealName="Peanut Butter Jelly Sandwich"/>
-      <Meal imgsrc="placeholder.jpg" mealName="Spaghetti and Meatballs"/>
-      <Meal imgsrc="placeholder.jpg" mealName="Healthy Tacos"/>
-      <Meal imgsrc="placeholder.jpg" mealName="Beans and rice"/>
-    </div>
-  )*/
 }
 
 export default MealList
