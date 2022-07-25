@@ -1,10 +1,13 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import Meal from './Meal'
-import MealService from '../services/MealService';
+import { useNavigate } from "react-router-dom";
+import MealService from "../services/MealService";
 
 const MealList = () => {
-  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
   const [meals, setMeals] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,23 +23,24 @@ const MealList = () => {
     fetchData();
   }, []);
 
-
   return (
     <>
     {!loading && (
     <div className="grid grid-cols-2 gap-1">
         {meals.map((meal) => (
           <Meal
-            mealName={meal.name}
+            id={meal.id}
+            name={meal.name}
             description={meal.description}
             tags={meal.tags}
-            rating={meal.rating}
-            poster={meal.poster}
+            rating="5.0"
+            poster="Bradley Hartlove"
             imgsrc="placeholder.jpg"
             ></Meal>
         ))}      
     </div>
     )}
+    <input type="image" onClick={() => {navigate("/addMeal")}} src="plus.png" alt="Add a meal" className="fixed bottom-8 w-20 right-8"></input>
     </>
   )
 }
