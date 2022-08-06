@@ -1,20 +1,15 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 
-const Meal = ({ imgsrc, name, description, tags, rating, poster, id }) => {
+const Meal = ({ imgsrc, name, description, tags, likes, poster, id }) => {
 
   const navigate = useNavigate();
 
+
   return (
-    <div className="mx-auto my-16 rounded-md border-2 shadow-xl w-10/12 hover:shadow-2xl hover:border-lime-500 h-fit hover:cursor-pointer" onClick={() => {navigate(`/viewMeal/${id}`, {
-      mealImg: {imgsrc},
-      name: {name},
-      description: {description},
-      tags: {tags},
-      rating: {rating},
-      poster: {poster},
-      id: {id}
-    })}}>
+    <div className="mx-auto my-16 rounded-md border-2 shadow-xl w-10/12 hover:shadow-2xl hover:border-lime-500 h-fit hover:cursor-pointer" onClick={() => {navigate(`/viewMeal/${id}`,
+
+    )}}>
       <div className="m-8">
         <img src={imgsrc} alt="Meal"/><br/><br/>
         <h2 className="m-2 truncate text-ellispis text-xl">{name}<br></br></h2>
@@ -28,7 +23,7 @@ const Meal = ({ imgsrc, name, description, tags, rating, poster, id }) => {
         ))} 
          </div>
          <div className="grid grid-cols-2">
-            <h3 className="m-4 text-lg">Rating: {rating}</h3>
+            <h3 className="m-4 text-lg">Likes: {likes}</h3>
             <h3 className="m-4 text-lg">Poster: {poster}</h3>
          </div>
       </div>

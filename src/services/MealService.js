@@ -10,6 +10,10 @@ class MealService {
   addMeal(meal) {
     return axios.post(MEAL_API_BASE_URL, meal);
   }
+
+  getMeal(id) {
+    return axios.get(MEAL_API_BASE_URL + "/" + id)
+  }
 }
 
 export default new MealService();

@@ -12,7 +12,7 @@ const AddMeal = () => {
     tagThree: "",
     recipe: "",
     poster: "Bradley Hartlove",
-    rating: "5.0",
+    likes: "5",
     tags: []
   });
 
