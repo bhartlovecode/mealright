@@ -1,6 +1,8 @@
 import { React, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import MealService from '../services/MealService';
+import 'firebase/compat/auth';
+import firebase from 'firebase/compat/app';
 
 const ViewMeal = () => {
 
@@ -8,6 +10,8 @@ const ViewMeal = () => {
   const [loading, setLoading] = useState(true);
   const id = useLocation().pathname.split("/")[2]
   const [item, setItem] = useState(id)
+
+  var auth = firebase.auth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +27,21 @@ const ViewMeal = () => {
     fetchData();
   }, []);
   
+
+  function updateMealLikes(id, uid){
+    const fetchData = async (id, uid) => {
+      setLoading(true);
+      try {
+        const response = await MealService.updateLikes(id, uid);
+        //setMeal(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    fetchData(id, uid);
+  }
+
   //name
   //description
   //tags
@@ -65,7 +84,7 @@ const ViewMeal = () => {
             <h4 class="text-2xl">Poster: {meal.poster}</h4>
           </div>
           <div class="  inline-block w-full mt-4">
-            <h4 class="text-2xl">Likes: {meal.likes}</h4>
+            <h4 class="text-2xl">Likes: 5</h4>
           </div>
           <div class="  inline-block w-full mt-4">
             <h4 class="text-2xl">Tags:</h4>
@@ -76,6 +95,10 @@ const ViewMeal = () => {
             {tag}
           </div>
           ))}
+          <div class="  inline-block w-full mt-4">
+            <button onClick={() => updateMealLikes(meal.id, auth.currentUser.uid)} 
+            className="bg-white border-2 border-gray-500 shadow-sm w-1/6 mx-auto my-2 text-black rounded-2xl text-2xl">Like</button>
+          </div>
           </div>
         </div>
       </div>

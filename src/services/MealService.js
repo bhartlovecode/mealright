@@ -14,6 +14,10 @@ class MealService {
   getMeal(id) {
     return axios.get(MEAL_API_BASE_URL + "/" + id)
   }
+
+  updateLikes(id, uid){
+    return axios.post(MEAL_API_BASE_URL + "/" + id + "/updateLikes", uid)
+  }
 }
 
 export default new MealService();

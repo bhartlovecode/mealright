@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MealService from "../services/MealService";
+import 'firebase/compat/auth';
+import firebase from 'firebase/compat/app';
 
 const AddMeal = () => {
 
+  var auth = firebase.auth();
   const [meal, setMeal] = useState({
     name: "",
     description: "",
@@ -11,9 +14,10 @@ const AddMeal = () => {
     tagTwo: "",
     tagThree: "",
     recipe: "",
-    poster: "Bradley Hartlove",
-    likes: "5",
-    tags: []
+    poster: auth.currentUser.displayName,
+    likes: 0,
+    tags: [],
+    uid: auth.currentUser.uid
   });
 
   const navigate = useNavigate();

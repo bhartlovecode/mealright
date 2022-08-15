@@ -33,8 +33,8 @@ const MealList = () => {
             name={meal.name}
             description={meal.description}
             tags={meal.tags}
-            likes="5"
-            poster="Bradley Hartlove"
+            likes={meal.likes.length}
+            poster={meal.poster}
             imgsrc="placeholder.jpg"
             ></Meal>
         ))}      
