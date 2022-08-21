@@ -8,7 +8,6 @@ const Meal = ({ imgsrc, name, description, tags, likes, poster, id }) => {
 
   return (
     <div className="mx-auto my-16 rounded-md border-2 shadow-xl w-10/12 hover:shadow-2xl hover:border-lime-500 h-fit hover:cursor-pointer" onClick={() => {navigate(`/viewMeal/${id}`,
-
     )}}>
       <div className="m-8">
         <img src={imgsrc} alt="Meal"/><br/><br/>

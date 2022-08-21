@@ -15,7 +15,7 @@ const AddMeal = () => {
     tagThree: "",
     recipe: "",
     poster: auth.currentUser.displayName,
-    likes: 0,
+    likes: [],
     tags: [],
     uid: auth.currentUser.uid
   });
@@ -82,7 +82,7 @@ const AddMeal = () => {
                     Tags
                   </label>
                   <input className="shadow appearance-none border rounded w-1/4 py-2 px-1 text-black mx-2" id="tagOne" 
-                  onChange={(e) => handleChange(e)}/>
+                  onChange={(e) => handleChange(e)} value={meal.tagOne}/>
                   <input className="shadow appearance-none border rounded w-1/4 py-2 px-1 text-black mx-2" id="tagTwo"
                   value={meal.tagTwo}
                   onChange={(e) => handleChange(e)}/>
