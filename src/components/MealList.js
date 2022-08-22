@@ -35,7 +35,7 @@ const MealList = () => {
             tags={meal.tags}
             likes={meal.likes.length}
             poster={meal.poster}
-            imgsrc="placeholder.jpg"
+            imgsrc={meal.photo}
             ></Meal>
         ))}      
     </div>

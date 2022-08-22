@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 
+
 const Meal = ({ imgsrc, name, description, tags, likes, poster, id }) => {
 
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Meal = ({ imgsrc, name, description, tags, likes, poster, id }) => {
     <div className="mx-auto my-16 rounded-md border-2 shadow-xl w-10/12 hover:shadow-2xl hover:border-lime-500 h-fit hover:cursor-pointer" onClick={() => {navigate(`/viewMeal/${id}`,
     )}}>
       <div className="m-8">
-        <img src={imgsrc} alt="Meal"/><br/><br/>
+        <img src={imgsrc} id="mimg" alt="Meal"/><br/><br/>
         <h2 className="m-2 truncate text-ellispis text-xl">{name}<br></br></h2>
         <p className="m-6 truncate text-ellipsis">{description}</p>
         <p>Tags:</p>

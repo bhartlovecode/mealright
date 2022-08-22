@@ -16,7 +16,8 @@ const UpdateMeal = () => {
         poster: "",
         likes: [],
         tags: [],
-        uid: ""
+        uid: "",
+        photo: ""
       });
     const [loading, setLoading] = useState(true);
     const id = useLocation().pathname.split("/")[2]
@@ -65,7 +66,8 @@ const UpdateMeal = () => {
                 poster: data.poster,
                 likes: data.likes,
                 tags: data.tags,
-                uid: data.uid
+                uid: data.uid,
+                photo: data.photo
             }
 
             setMeal(tmpMeal);

@@ -22,6 +22,11 @@ class MealService {
   updateMeal(id, meal){
     return axios.post(MEAL_API_BASE_URL + "/" + id + "/updateMeal", meal)
   }
+
+  deleteMeal(id){
+    return axios.delete(MEAL_API_BASE_URL + "/" + id + "/deleteMeal")
+  }
+
 }
 
 export default new MealService();

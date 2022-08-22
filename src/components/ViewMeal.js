@@ -66,6 +66,20 @@ const ViewMeal = () => {
     fetchData(id, uid);
   }
 
+  const delMeal = () => {
+    var result = window.confirm("Are you sure you want to delete this meal?");
+    if(result === true){
+      MealService.deleteMeal(meal.id)
+      .then((response) => {
+        navigate("/mealList")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+    
+  };
+
   //name
   //description
   //tags
@@ -82,7 +96,7 @@ const ViewMeal = () => {
         <div className="  col-span-2">
           <div className="  inline-block">
             <div className="  mt-4 mb-4 w-9/12 float-right mr-16">
-              <img src="/placeholder.jpg" alt="Meal"/>
+              <img src={meal.photo} alt="Meal"/>
             </div>
           </div>
           <div className="relative">
@@ -144,7 +158,7 @@ const ViewMeal = () => {
                   <button onClick={() => navigate(`/updateMeal/${id}`)} 
                   className="bg-black border-2 border-gray-500 shadow-sm w-1/6 mx-auto my-2
                   hover:shadow-2xl hover:shadow-black text-white rounded-2xl text-2xl mr-4">Update</button>
-                  <button onClick={() => console.log("Delete")} 
+                  <button onClick={() => delMeal()} 
                   className="bg-red-500 border-2 border-gray-500 shadow-sm w-1/6 mx-auto my-2
                    text-white rounded-2xl text-2xl hover:shadow-2xl hover:shadow-black">Delete</button>
               </div>

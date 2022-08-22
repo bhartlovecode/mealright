@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import MealService from "../services/MealService";
 import 'firebase/compat/auth';
 import firebase from 'firebase/compat/app';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const AddMeal = () => {
 
@@ -17,7 +18,8 @@ const AddMeal = () => {
     poster: auth.currentUser.displayName,
     likes: [],
     tags: [],
-    uid: auth.currentUser.uid
+    uid: auth.currentUser.uid,
+    photo: ""
   });
 
   const navigate = useNavigate();
@@ -27,15 +29,46 @@ const AddMeal = () => {
     setMeal({ ...meal, [e.target.id]: value });
   };
 
+  function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+
   const saveMeal = (e) => {
     e.preventDefault()
-    MealService.addMeal(meal)
-      .then((response) => {
-        navigate("/mealList")
+    const storage = getStorage();
+    const uid = uuidv4()
+    const storageRef = ref(storage, uid);
+    
+    // Create file metadata including the content type
+    /** @type {any} */
+    const metadata = {
+      contentType: 'image/jpeg',
+    };
+    
+    const uploader = document.getElementById("photo");
+    console.log(uploader.files[0]);
+
+    uploadBytes(storageRef, uploader.files[0], metadata).then((snapshot) => {
+      var pic = document.getElementById("photo")
+      getDownloadURL(ref(storage, uid))
+      .then((url) => {
+        meal.photo = url
+        MealService.addMeal(meal)
+          .then((response) => {
+            navigate("/mealList");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
-        console.log(error);
+        // Handle any errors
       });
+    });
+    
+        
   };
 
   const isEmpty = (tagElem) => {
@@ -94,11 +127,15 @@ const AddMeal = () => {
                   </label>
                   <textarea rows="5" className="shadow appearance-none border rounded w-full py-2 px-1 text-black"  id="recipe" required
                   onChange={(e) => handleChange(e)}/>
+                  <div className="items-center justify-center">
+                    <label className=" text-black text-md font-bold mb-1 m-2 float-left">Choose a meal picture:</label>
+                    <input id="photo" className="w-full py-2 m-2" required type="file" accept="image/jpeg"/>
+                  </div>
                   <input
                   className="text-white bg-lime-700 active:bg-lime-400 my-2 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                   type="submit"
                   value="Submit"
-                > 
+                  > 
                 </input>
                 </form>
               </div>
